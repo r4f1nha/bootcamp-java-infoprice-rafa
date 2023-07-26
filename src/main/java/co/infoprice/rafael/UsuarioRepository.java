@@ -10,6 +10,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     @Query("SELECT u FROM Usuario u WHERE u.githubUser = ?1")
     Optional<Usuario> findbygithubUser(String githubUser);
+
 }
 
 

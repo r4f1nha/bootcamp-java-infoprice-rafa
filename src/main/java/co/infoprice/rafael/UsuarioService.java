@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -20,7 +21,13 @@ public class UsuarioService {
 
     }
     public Usuario save (UsuarioDTO usuarioDTO){
-        repository.findbygithubUser(usuarioDTO.getGithubUser());
+        Optional<Usuario> githubUser = repository.findbygithubUser(usuarioDTO.getGithubUser());
+
+        if(githubUser.isPresent())
+            throw new RuntimeException("Usuario ja cadastrado");
+
+
+
         Usuario usuario = new Usuario();
         usuario.setName(usuarioDTO.getName());
         usuario.setOccupation(usuarioDTO.getOccupation());
@@ -39,6 +46,13 @@ public class UsuarioService {
 
         Usuario atualizarUsuario = repository.save(usuario);
         return atualizarUsuario;
+    }
+
+    public void excuirUsuario(Long userId){
+
+        repository.deleteById(userId);
+
+
     }
 
 }

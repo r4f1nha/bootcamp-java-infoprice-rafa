@@ -1,6 +1,7 @@
 package co.infoprice.rafael;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,12 @@ public class UsuarioControler {
                                     @RequestBody Usuario userDetails){
 
         return service.atualizarUsuario(userId, userDetails);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity excuirUsuario(@PathVariable("id") Long userId){
+        service.excuirUsuario(userId);
+        return ResponseEntity.ok("Legal");
     }
 
 }
